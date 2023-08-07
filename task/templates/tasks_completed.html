@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="text-center display-3 py-3">Tareas Completadas</h1>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <ul class="list-group">
+            {% for task in tasks %}
+                <li class="list-group-item"> 
+                    {% if task.important %}
+                    <a href="{% url 'task_detail' task.id %}"><strong>{{ task.title }}</strong></a>        
+                    {% else %}
+                    <a href="{% url 'task_detail' task.id %}">{{ task.title }}</a>
+                    {% endif %}
+                    <p>{{ task.description }}</p>    
+                    <p>{{ task.user }}</p>  
+                    <p>{{ task.datecompleted }}</p>  
+                    <p>{{ task.important }}</p>    
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</main>
+{% endblock %}
